@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "lib": ["ESNext", "DOM"]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
