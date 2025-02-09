@@ -38,7 +38,7 @@ export class DusterJob {
 
     createPlane() {
         // create a duster in the air, freeze and warp player into
-        const pos = new mp.Vector3(this.config.pedPos.x, this.config.pedPos.y, this.config.pedPos.z);
+        const pos = new mp.Vector3(this.config.reception.pos.x, this.config.reception.pos.y, this.config.reception.pos.z);
         const angle = 360 / this.config.spawnSectors * DusterJob.dusterNumber;
 
         let dusterPos = new mp.Vector3(pos.x, pos.y, pos.z + this.config.spawnHeight);

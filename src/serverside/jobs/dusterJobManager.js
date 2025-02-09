@@ -1,7 +1,6 @@
 // Работа орошителя
 import { DusterJob } from './DusterJob.js';
 import { config } from '../../shared/dusterJobConfig';
-
 import rpc from 'rage-rpc';
 
 const DRIVER_SEAT = 0;

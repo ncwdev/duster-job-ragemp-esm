@@ -25,7 +25,6 @@ export const config = Object.freeze({
         { x: 2853.27, y: 4632.36, z: 83.23, delta: 14 },
         { x: 2619.45, y: 4501.73, z: 71.23, delta: 16 },
     ],
-    pedPos: { x: 2136.20, y: 4794.20, z: 41.01 },
     respawnPos: { x: 2138.0, y: 4791.24, z: 40.97 },
     // настройки спавна самолетов в воздухе, чтобы не стакались один в другом
     spawnSectors: 20,
@@ -34,6 +33,7 @@ export const config = Object.freeze({
     timeToDestroyVehicle: 1000, // через сколько удалить самолет, когда закончили работу
     reception: {
         // бот с иконкой
+        pos: { x: 2136.20, y: 4794.20, z: 41.01 },
         rot: 20,
         blipId: 251,
         blipColor: 17,
@@ -49,4 +49,7 @@ export const config = Object.freeze({
     },
     pointBlipId: 1, // кружок
     pointBlipColor: 2, // зеленый
+    pointBlipScale: 0.75,
+    pointBlipName: 'Точка орошения',
+    markerId: 6,
 });
