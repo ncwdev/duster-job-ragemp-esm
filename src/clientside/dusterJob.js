@@ -16,6 +16,13 @@ let jobLevels = null;
 let jobVehicle = null;
 let fieldManager = null;
 
+let checkProximityInterval = null;
+
+function clearProximityInterval() {
+    clearInterval(checkProximityInterval);
+    checkProximityInterval = null;
+}
+
 function getJobLevelInfo() {
     return jobLevels.getLevelInfoByPoints(playerPointsNumber);
 }
@@ -48,6 +55,20 @@ function startDusterJob() {
     jobVehicle.start();
 
     mp.events.add('render', renderDusterJob);
+
+    clearProximityInterval();
+    checkProximityInterval = setInterval(() => {
+        const vehiclePos = jobVehicle.getPosition();
+        if (fieldManager.checkProximity(vehiclePos)) {
+            gotDusterJobPoint();
+
+            if (fieldManager.isEmpty()) {
+                setTimeout(() => {
+                    generateNewField();
+                }, 100);
+            }
+        }
+    }, config.checkProximityTime);
 }
 
 function generateNewField() {
@@ -60,6 +81,7 @@ function endDusterJob() {
     fieldManager.cleanup();
 
     mp.events.remove('render', renderDusterJob);
+    clearProximityInterval();
 
     rpc.callServer('ncw.fireDusterPilot').then(() => {
         if (gotPoints > 0) {
@@ -71,17 +93,7 @@ function endDusterJob() {
 function renderDusterJob() {
     if (jobVehicle.inGame()) {
         jobVehicle.renderSmoke();
-
-        const vehiclePos = jobVehicle.getPosition();
-        if (fieldManager.checkProximity(vehiclePos)) {
-            gotDusterJobPoint();
-
-            if (fieldManager.isEmpty()) {
-                setTimeout(() => {
-                    generateNewField();
-                }, 100);
-            }
-        }
+        fieldManager.renderMarkers();
     }
     jobVehicle.checkDriverStatus();
     if (!jobVehicle.hasDriver()) {

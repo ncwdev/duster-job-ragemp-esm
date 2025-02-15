@@ -54,7 +54,7 @@ export class FieldManager {
         }
     }
 
-    checkProximity(vehiclePos) {
+    renderMarkers() {
         const markerId = this.config.markerId;
         for (let i = 0, len = this.markers.length; i < len; ++i) {
             const item = this.markers[i];
@@ -62,7 +62,15 @@ export class FieldManager {
                 const pos = item.blip.getCoords();
                 const scale = item.scale;
                 mp.game.graphics.drawMarker(markerId, pos.x, pos.y, pos.z, 0, 0, 0, 0, 0, 0, scale, scale, scale, 0, 255, 0, 255, false, true, 2, false, null, null, false);
+            }
+        }
+    }
 
+    checkProximity(vehiclePos) {
+        for (let i = 0, len = this.markers.length; i < len; ++i) {
+            const item = this.markers[i];
+            if (item.blip && item.blip.handle) {
+                const pos = item.blip.getCoords();
                 const dist = utils.getDistance3d(vehiclePos, pos);
                 if (dist <= this.capturePointDist) {
                     this.markers.splice(i, 1);
