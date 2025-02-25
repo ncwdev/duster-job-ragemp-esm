@@ -68,7 +68,7 @@ export class PersonProfileJson extends IPersonProfile {
             this.expa = data.expa;
             return this.expa;
         } else {
-            this.setDusterJobPoints(0);
+            this.setExpa(0);
             return 0;
         }
     }
